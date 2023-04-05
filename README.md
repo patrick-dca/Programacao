@@ -2,7 +2,7 @@
 
 Projetos de programação em Python e VBA Excel para a faculdade, trabalho, cursos extracurriculares ou apenas por passatempo.
 
-# Descrição breve dos arquivos:
+# Descrição breve dos arquivos em Python:
 
 1. Arquivos referentes a cálculo da Estrutura a Termo das Taxas de Juros (ETTJ), cálculo de taxas de juro (no caso spot e foward) e cálculo do preço de títulos de renda fixa:
 
@@ -23,5 +23,16 @@ Projetos de programação em Python e VBA Excel para a faculdade, trabalho, curs
 5. Arquivo de Trend Following:
 
    Programa em Python feito para projeto de liga universitária no qual o usuário escolhe uma ação e um período para o backtest e utilizando esses dados um robô de        investimentos indica momentos de compra e de venda dessa ação seguindo a estratégia escolhida pelo usuário, Exponencial Moving Average (EMA) e Simple Moving Average    (SMA) e um Stop-Loss indicado. Assim, inúmeros calculos e tabelas são feitos a fim de facilitar a visualização do usuário bem como um backtesting extensivo da          performance do robô, mostrando melhores e piores trades, progressão de patrimônio, métricas de rentabilidade entre vários outros. Ainda, é feito uma otimização do      parâmetros das estratégias a fim de melhorar o modelo futuramente.
+   
+
+# Descrição breve dos arquivos em VBA Excel:
+
+1. Arquivo referente a coleta de nomes de arquivos e atualização dos modelos financeiros:
+
+   Programa em VBA Excel, criado durante estágio em fintech, que é utilizado em forma de botão. Primeiro, é fornecido o caminho da pasta no qual os arquivos desejados    estão e uma lista de arquivos que não devem ser coletados. Em seguida, no botão "Coleta do nome de arquivos", a pasta é percorrida e os nomes são coletados            (ignorandos os arquivos especificados), e então, um por um os nomes são colados na planilha em ordem alfabética. Assim, aciona-se o segundo botão "Atualizar Modelos    Financeiros". A partir dos nomes dos arquivos, o caminho da pasta dos mesmos e uma pasta de output, bem como valores a serem procurados e substituídos nos modelos,    o programa realiza uma série de tarefas. Primeiro copia todos os arquivos selecionados para a pasta de output, depois abre cada um e modifica os dados em algumas      coluna e atualiza alguns valores a partir do localizar e substituir, e finalmente, salva e fecha cada um.
+
+2. Arquivo de Solver no VBA:
+
+   Programa em VBA Excel, criado durante estágio em fintech, que gera tabelas contendo valores de precificações de carteiras de dívida e o percentual do valor original    que esse valor representa para valores diferentes de TIR. Portanto, o programa tem basicamente a função de um Solver que roda para inúmeras metas de uma vez só.
 
 
