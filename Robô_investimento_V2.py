@@ -27,7 +27,7 @@ dados = dados_originais[['formatted_date','adjclose']]
 dados.rename(columns={'formatted_date' : 'data', 'adjclose' : 'fechamento'}, inplace=True)
 dados_originais.rename(columns={'high' : 'High', 'low' : 'Low', 'open' : 'Open', 'volume' : 'Volume', 'formatted_date' : 'Date', 'adjclose' : 'Close'}, inplace=True)
 
-# CÃ¡lculo da média móvel exponencial p/ curto e longo prazo #
+# Cálculo da média móvel exponencial p/ curto e longo prazo #
 Periodo_curto = 50
 Periodo_Longo = 200
 
@@ -44,7 +44,7 @@ elif f == 'EMA':
     dados['MMECP'] = round(ta.ema(dados.iloc[:, 1], Periodo_curto), 4) # Média móvel exponencial de curto
     dados['MMELP'] = round(ta.ema(dados.iloc[:, 1], Periodo_Longo), 4) # Média móvel exponencial de longo
 
-# Gráfico do fechamento ajustado no perí­odo #
+# Gráfico do fechamento ajustado no período #
 figura1=plt.plot(dados['data'], dados['fechamento'], dados['data'], dados['MMECP'], dados['data'], dados['MMELP'])
 plt.title('Gráfico do fechamento,da média móvel exponencial de curto e longo prazo de 2015 a 2022')
 plt.xlabel('Data')
@@ -208,7 +208,7 @@ print('/////////////////////////////////////////////////////////////////////////
 print('Retornos diários e acumulados da estratégia BUY AND HOLD:')
 print(retorno_buy_and_hold)
 print('////////////////////////////////////////////////////////////////////////////')
-print('Retornos diários e acumulados da estratégia do ROBÔ:')
+print('Retornos diários e acumulados da estratégia do ROBÔ:')
 print(retorno_robo)
 print('////////////////////////////////////////////////////////////////////////////')
 print('O retorno acumulado da estratégia BUY AND HOLD foi de: ', round(retorno_buy_and_hold['retornos acumulados'][tam_buy_and_hold-1]*100,2),'%')
@@ -217,11 +217,11 @@ print('/////////////////////////////////////////////////////////////////////////
 
 # Gráfico dos retornos das duas estratégias
 fig3_4, (ax3, ax4) = plt.subplots(2)
-fig3_4.suptitle('Retornos acumulados do BUY AND HOLD e do ROBÔ ao longo do perí­odo analisado')
+fig3_4.suptitle('Retornos acumulados do BUY AND HOLD e do ROBÔ ao longo do período analisado')
 ax3.plot(retorno_buy_and_hold['retornos acumulados'])
 ax3.legend(['BUY AND HOLD'],loc="upper left")
 ax4.plot(retorno_robo['retornos acumulados'], color='red')
-ax4.legend(['ROBÔ'],loc="upper left")
+ax4.legend(['ROBÔ'],loc="upper left")
 
 # Backtest
 from backtesting import Backtest, Strategy
@@ -313,7 +313,7 @@ if f == 'SMA':
     print('Backtesting da estratégia escolhida:')
     print(estatisticas)
     print('////////////////////////////////////////////////////////////////////////////')
-    bt.plot(filename = r'C:\Users\patri\OneDrive - Insper - Institudo de Ensino e Pesquisa\INSPER\ENTIDADES' ,plot_equity=True, plot_return=False, plot_pl=True, plot_volume=True, plot_drawdown=True,show_legend=True,open_browser=True)
+    bt.plot(filename = r'caminho para a pasta de output' ,plot_equity=True, plot_return=False, plot_pl=True, plot_volume=True, plot_drawdown=True,show_legend=True,open_browser=True)
 elif f == 'EMA':
     bt = Backtest(dados_backtest, EMACross, cash=100, commission=.002)
     estatisticas = bt.run()
@@ -321,7 +321,7 @@ elif f == 'EMA':
     print('Backtesting da estratégia escolhida:')
     print(estatisticas)
     print('////////////////////////////////////////////////////////////////////////////')
-    bt.plot(filename = r'C:\Users\patri\OneDrive - Insper - Institudo de Ensino e Pesquisa\INSPER\ENTIDADES' ,plot_equity=True, plot_return=False, plot_pl=True, plot_volume=True, plot_drawdown=True,show_legend=True,open_browser=True)    
+    bt.plot(filename = r'caminho para a pasta de output' ,plot_equity=True, plot_return=False, plot_pl=True, plot_volume=True, plot_drawdown=True,show_legend=True,open_browser=True)    
 
 otimizar = bt.optimize(n1=range(5, 70, 5),
                     n2=range(100, 300, 5),
