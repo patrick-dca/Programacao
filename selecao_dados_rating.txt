@@ -1,0 +1,81 @@
+SELECT
+  npl.document
+, npl.carteira_npl
+, npl.produto_npl
+, valor_titulo_original
+, dias_atraso
+, (CASE WHEN (able.credor IS NOT NULL) THEN 1 ELSE 0 END) cliente_ativo
+, able.credor
+, bigdata.data_nasc data_nascimento
+, "date_diff"('year', CAST(bigdata.data_nasc AS date), "now"()) idade
+, bigdata.genero
+, bigdata.obito obito
+, bigdata.compradoronline compradoronline
+, bigdata.vendedoronline vendedoronline
+, bigdata.utilizacaoweb utilizacaoweb
+, bigdata.rendaestimada rendaestimada
+, bigdata.uf uf
+, (CASE WHEN (aux.enquadramento IS NOT NULL) THEN 1 ELSE 0 END) auxilio_emergencial
+, (CASE WHEN (aux.enquadramento IS NOT NULL) THEN (CASE WHEN (aux.enquadramento = 'BOLSA FAMILIA') THEN 'BOLSA FAMILIA' WHEN (aux.enquadramento = 'EXTRA CADUN') THEN 'NAO BOLSA FAMILIA' WHEN (aux.enquadramento = 'CADUN NAO BOLSA') THEN 'NAO BOLSA FAMILIA' END) ELSE null END) enquadramento
+, aux."valor benefício" valor_beneficio
+, marcacao.publico_eng publico_eng
+FROM
+  (((((
+   SELECT
+     "lpad"("replace"("replace"(documento, '.', ''), '-', ''), 11, '0') document
+   , "substr"("lpad"("replace"("replace"(documento, '.', ''), '-', ''), 11, '0'), 4, 6) _key
+   , "round"("sum"(CAST("replace"(valor_titulo_original, ',', '.') AS double)), 2) valor_titulo_original
+   , "max"(dias_atraso) dias_atraso
+   , produto_npl
+   , carteira_npl
+   FROM
+     datascience.input_eda_npl
+   WHERE ((documento <> '') AND (valor_titulo_original <> ''))
+   AND carteira_npl ='ouze2'
+   GROUP BY 1, 5, 6
+)  npl
+LEFT JOIN (
+   SELECT DISTINCT
+     document
+   , "lower"("trim"(nome)) nome_completo
+   , "array_remove"("array_remove"("array_remove"("array_remove"("array_remove"("split"("lower"("trim"(nome)), ' '), 'de'), 'do'), 'da'), 'dos'), 'das') name_array
+   , data_nasc
+   , genero
+   , obito
+   , compradoronline
+   , vendedoronline
+   , utilizacaoweb
+   , rendaestimada
+   , uf
+   FROM
+     score_bigdata.bigdata_enxuto_para_npl
+)  bigdata ON (bigdata.document = npl.document))
+LEFT JOIN (
+   SELECT DISTINCT
+     document_hash
+   , "count"(DISTINCT credor) credor
+   FROM
+     blu365_able.able
+   GROUP BY 1
+)  able ON ("lower"("to_hex"("sha256"(CAST("concat"('cpf:', npl.document) AS varbinary)))) = able.document_hash))
+LEFT JOIN (
+   SELECT DISTINCT
+     "max_by"(enquadramento, "rand"()) enquadramento
+   , "max_by"("valor benefício", "rand"()) "valor benefício"
+   , "replace"("substr"(COALESCE(NULLIF("cpf beneficiário", '***.000.000-**'), "cpf responsável"), 5, 7), '.', '') _key_aux
+   , "lower"("trim"((CASE WHEN (NULLIF("cpf beneficiário", '***.000.000-**') IS NOT NULL) THEN "nome beneficiário" ELSE "nome responsável" END))) nome_completo_aux
+   , "split"("lower"("trim"((CASE WHEN (NULLIF("cpf beneficiário", '***.000.000-**') IS NOT NULL) THEN "nome beneficiário" ELSE "nome responsável" END))), ' ') name_array_aux
+   FROM
+     operacoes.auxilioemergencial
+   GROUP BY 3, 4, 5
+)  aux ON (((npl._key = aux._key_aux) AND ("split_part"(aux.nome_completo_aux, ' ', 1) = "split_part"(bigdata.nome_completo, ' ', 1))) AND ("cardinality"("array_intersect"(bigdata.name_array, aux.name_array_aux)) > 1)))
+LEFT JOIN (
+   SELECT
+     document
+   , "max"(publico_eng) publico_eng
+   FROM
+     hermes.marcacao_engajados
+   GROUP BY 1
+)  marcacao ON (marcacao.document = npl.document))
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+ORDER BY 1 ASC
