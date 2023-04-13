@@ -36,3 +36,8 @@ Projetos de programação em Python e VBA Excel para a faculdade, trabalho, curs
    Programa em VBA Excel, criado durante estágio em fintech, que gera tabelas contendo valores de precificações de carteiras de dívida e o percentual do valor original    que esse valor representa para valores diferentes de TIR. Portanto, o programa tem basicamente a função de um Solver que roda para inúmeras metas de uma vez só.
 
 
+# Descrição breve dos arquivos em SQL:
+
+1. Arquivo que seleciona e agrega os dados para a confecção do rating:
+
+   Programa em SQL no qual dados são coletados, separados e agregados em um CSV. Um dos grandes tomadores de tempo no processo de rating de uma carteira era a coleta      de dados específicos na plataforma de análise de dados (AWS) da empresa. Era necessário coletar dados acerca de perfil geográfico, de renda, de idade, entre outros    dos cpfs da base, bem como dados da carteira como um todo, como a distribuição das dívidas e dos atrasos. Como esses valores estavam em um dashboard, o trabalho        era feito a mão, então, como meio de agilizar isso, eu e uma colega de trabalho fizemos esse programa. O programa coletava as informações necessárias, agregava e      por fim, gerava um arquivo em CSV para exportação, no qual já saia no formato certo para apenas copiar e colar na planilha de rating.
