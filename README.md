@@ -24,6 +24,10 @@ Projetos de programação em Python e VBA Excel para a faculdade, trabalho, curs
 
    Programa em Python feito para projeto de liga universitária no qual o usuário escolhe uma ação e um período para o backtest e utilizando esses dados um robô de        investimentos indica momentos de compra e de venda dessa ação seguindo a estratégia escolhida pelo usuário, Exponencial Moving Average (EMA) e Simple Moving Average    (SMA) e um Stop-Loss indicado. Assim, inúmeros calculos e tabelas são feitos a fim de facilitar a visualização do usuário bem como um backtesting extensivo da          performance do robô, mostrando melhores e piores trades, progressão de patrimônio, métricas de rentabilidade entre vários outros. Ainda, é feito uma otimização do      parâmetros das estratégias a fim de melhorar o modelo futuramente.
    
+6. Arquivo de Coleta de dados e criação de resumo para ativos dos EUA:
+
+   Progrmas em Python feitos para entrarem no site da SEC, EDGAR, para coletar dados referentes a demonstrações contábeis e através desses valores, criar um resumo com valores e métricas interessantes. Além disso, é possível gerar gráficos e visualizações interessantes para os dados. É usado um método de arquivo contendo apenas funções (edgar_functions.py) e outra que utiliza essas fórmulas e realiza outras ações (Base_REITs.ipynb).
+
 
 # Descrição breve dos arquivos em VBA Excel:
 
